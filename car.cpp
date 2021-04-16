@@ -6,27 +6,15 @@
 //Milej zabawy ~ Przemys³aw
 
 //Biblioteki
-#include "main.h"
+#include "car.h"
 #include <ctime>
 #include <string>
 #include <iostream>
 using namespace std;
 
-class Car
-{
-public:
-	bool Jazda(double);
-	void Tankuj(double);
-	void NadajNumerStartowy(double);
-	void Tankuj(double);
-	void InfoAll();
-	double OdczytLicznika();
-	double OdczytStanuPaliwa();
-	double OdczytPojemnosciBaku();
-	
-private:
+Car::Car() {}
 
-};
+Car::~Car() {}
 
 //Jakub
 bool Car::Jazda(double Odleglosc)
