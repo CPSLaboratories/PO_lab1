@@ -10,11 +10,11 @@
 using namespace std;
 
 //Zmienne
-int ZatankujDo = 80;
+int ZatankujWszystkieDo = 80;
 int OdlegloscZawody = 100;
 int IDZwyciezcy = 0;
 int IloscSamochodow = 0;
-double BazaSamochodow[];
+double BazaSamochodow[];    //docelowo obiekty klasy Car
 
 //Program
 void main()
@@ -24,7 +24,7 @@ void main()
 	cout << to_string(IloscSamochodow);
 }
 
-void UtworzBazeSamochodow(int Ilosc)
+void NadajNumeryStartowe(int Ilosc)
 {
 	srand(time(NULL));
 	for (int i = 0; i < Ilosc; i++)
