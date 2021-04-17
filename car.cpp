@@ -12,25 +12,83 @@
 #include <iostream>
 using namespace std;
 
-Car::Car() {}
+Car::Car() 
+{
+	Car::PojemnoscBaku = LosujDane(40,100);
+	Car::SrednieSpalanie = LosujDane(0.04,0.10);
+	Car::PrzebytyDystans = 0.0;
+	Car::PozostalePaliwo = 0.0;
+}
 
 Car::~Car() {}
+
+double Car::LosujDane(double ValStart, double ValStop)
+{
+	return (double)rand() / RAND_MAX * (ValStop - ValStart) + ValStart;
+}
 
 //Jakub
 bool Car::Jazda(double Odleglosc)
 {
-	bool Sukces = false;
-	return Sukces;
+	// Trzeba zadbaæ, aby Odleglosc by³a nieujemna
+
+	if (Car::PozostalePaliwo == 0.0)
+	{
+		cout << "Brak paliwa";
+	}
+	else
+	{
+		if ((Car::SrednieSpalanie * Odleglosc) > Car::PozostalePaliwo)
+		{
+			Car::PrzebytyDystans = Car::PrzebytyDystans + (Car::PozostalePaliwo / Car::SrednieSpalanie);
+			Car::OdczytStanuPaliwa(Car::PozostalePaliwo / Car::SrednieSpalanie); // Tutaj równoznaczne bêdzie wyzerowanie paliwa komend¹ Car::PozostalePaliwo = 0.0;  
+
+			bool Porazka = true; // Nie wiem, czy tutaj powinno byæ true czy false
+			return Porazka;
+		}
+		else
+		{
+			Car::PrzebytyDystans = Car::PrzebytyDystans + Odleglosc;
+			Car::OdczytStanuPaliwa(Odleglosc);
+
+			bool Sukces = false;
+			return Sukces;
+		}
+	}
 }
 
-void Car::Tankuj(double Ilosc)
+double Car::Tankuj(double Ilosc)
 {
-
+	if (Car::PozostalePaliwo + Ilosc > Car::PojemnoscBaku)
+	{
+		Car::PozostalePaliwo = Car::PojemnoscBaku;
+		cout << "Nie mozesz dolac wiecej paliwa, niz wynosi pojemnosc baku. Bak pelny.";
+	}
+	else
+	{
+		if (Car::PozostalePaliwo + Ilosc < 0.0)
+		{
+			Car::PozostalePaliwo = 0.0;
+			cout << "Nie mozesz wylac wiecej paliwa, niz obecnie znajduje sie w baku. Bak pusty.";
+		}
+		else
+		{
+			Car::PozostalePaliwo = Car::PozostalePaliwo + Ilosc;
+		}
+	}
+	return(Car::PozostalePaliwo);
 }
 
-double Car::OdczytStanuPaliwa()
+double Car::OdczytStanuPaliwa(double dystans)
 {
-
+	if ((Car::PozostalePaliwo - (dystans * Car::SrednieSpalanie)) < 0.0)
+	{
+		Car::PozostalePaliwo = 0.0;
+	}
+	else
+	{
+		Car::PozostalePaliwo = Car::PozostalePaliwo - (Car::PrzebytyDystans * Car::SrednieSpalanie);
+	}
 }
 
 //Sebastian

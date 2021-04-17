@@ -6,19 +6,28 @@
 
 class Car
 {
-public:
-	bool Jazda(double);
-	void Tankuj(double);
-	void NadajNumerStartowy(double);
-	void Tankuj(double);
-	void InfoAll();
-	double OdczytLicznika();
-	double OdczytStanuPaliwa();
-	double OdczytPojemnosciBaku();
+	public:
+		bool Jazda(double);
+		double Tankuj(double); // Ta funkcja by³a void, zmieni³em na double i u¿y³em jej w tej postaci w kodzie
+		void NadajNumerStartowy(double);
+		void InfoAll();
+		double OdczytLicznika(); // Przebieg
+		double OdczytStanuPaliwa(double);
+		double OdczytPojemnosciBaku();
+		double LosujDane(double, double);
+		Car();
+		~Car();
 
-	Car();
-	~Car();
+	private:
 
-private:
+		double PojemnoscBaku;
+		double PozostalePaliwo; // Paliwo, które pozosta³o po przejechaniu przebytego dystansu
+		double SrednieSpalanie;
+		double PrzebytyDystans; // sumaryczny dystans, przebyty po danej liczbie wywo³añ funkcji "Jazda"
+
+		//informacja o pozosta³ym paliwie - dostanê j¹ z main
+
+
+
 
 };
