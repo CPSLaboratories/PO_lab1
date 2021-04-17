@@ -31,6 +31,7 @@ double Car::LosujDane(double ValStart, double ValStop)
 bool Car::Jazda(double Odleglosc)
 {
 	// Trzeba zadbaæ, aby Odleglosc by³a nieujemna
+	bool Sukces = false;
 
 	if (Car::PozostalePaliwo == 0.0)
 	{
@@ -43,15 +44,17 @@ bool Car::Jazda(double Odleglosc)
 			Car::PrzebytyDystans = Car::PrzebytyDystans + (Car::PozostalePaliwo / Car::SrednieSpalanie);
 			Car::OdczytStanuPaliwa(Car::PozostalePaliwo / Car::SrednieSpalanie); // Tutaj równoznaczne bêdzie wyzerowanie paliwa komend¹ Car::PozostalePaliwo = 0.0;  
 
-			bool Porazka = true; // Nie wiem, czy tutaj powinno byæ true czy false
-			return Porazka;
+			//bool Porazka = true; // Nie wiem, czy tutaj powinno byæ true czy false
+			//return Porazka;
+			Sukces = false; //Drobna poprawka ~ Przemek
+			return Sukces;
 		}
 		else
 		{
 			Car::PrzebytyDystans = Car::PrzebytyDystans + Odleglosc;
 			Car::OdczytStanuPaliwa(Odleglosc);
 
-			bool Sukces = false;
+			Sukces = true;
 			return Sukces;
 		}
 	}
@@ -89,6 +92,8 @@ double Car::OdczytStanuPaliwa(double dystans)
 	{
 		Car::PozostalePaliwo = Car::PozostalePaliwo - (Car::PrzebytyDystans * Car::SrednieSpalanie);
 	}
+
+	//return Car::PozostalePaliwo;
 }
 
 //Sebastian
@@ -96,6 +101,7 @@ void Car::NadajNumerStartowy(double Numer)
 {
 
 }
+
 
 double Car::OdczytLicznika()
 {
@@ -107,7 +113,7 @@ double Car::OdczytPojemnosciBaku()
 
 }
 
-void Car::InfoAll()
+void Car::Info(const string& Zmienna, string Typ)
 {
-
+	//ma obs³ugiwaæ case'y "numer_startowy", "spalanie", "przebieg", "pojemnosc_baku", "stan_paliwa", "wszystko"
 }

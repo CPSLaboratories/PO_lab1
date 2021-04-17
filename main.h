@@ -3,3 +3,13 @@
  ------------------Przemys³aw Papiernik/Jakub Wrzeszcz/Sebastian Likoñski-----------------------------*/
 
 #pragma once
+
+void main();
+
+void UtworzFlote(int IleSamochodow);
+
+void RozpocznijZawody();
+
+void ZatankujWszystkie(double Ile);
+
+void WyswietlDane();

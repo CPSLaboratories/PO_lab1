@@ -4,31 +4,99 @@
 
 //Biblioteki
 #include "main.h"
+#include "car.h"
 #include <ctime>
 #include <string>
 #include <iostream>
 using namespace std;
 
-//Zmienne
-int ZatankujWszystkieDo = 80;
+//CFG
+double ZatankujWszystkieDo = 80;
 int OdlegloscZawody = 100;
-int IDZwyciezcy = 0;
 int IloscSamochodow = 0;
-double BazaSamochodow[];    //docelowo obiekty klasy Car
+
+//Zmienne
+int Menu = 0;
+Car* Flota;
 
 //Program
 void main()
 {
-	cout << "Wprowadz liczbe samochodow\n";
-	cin >> IloscSamochodow;
-	cout << to_string(IloscSamochodow);
-}
-
-void NadajNumeryStartowe(int Ilosc)
-{
-	srand(time(NULL));
-	for (int i = 0; i < Ilosc; i++)
+	while (IloscSamochodow < 5)
 	{
-		BazaSamochodow[i] = (double)rand() / RAND_MAX * (1000000 - 1) + 1;
+		cout << "Wprowadz liczbe samochodow (min.5)\n";
+		cin >> IloscSamochodow;
+	}
+
+	UtworzFlote(IloscSamochodow);
+
+	while (1)
+	{
+		cout << "Wybierz opcje\n1.Zatankuj wszystkie samochody do 80% pojemnosci baku\n2.Rozpocznij zawody\n3.Wyswietl dane pojazdow\n4.Zamknij program";
+		cin >> Menu;
+		switch (Menu)
+		{
+		case 1:
+			ZatankujWszystkie(ZatankujWszystkieDo);
+			break;
+		case 2:
+			RozpocznijZawody();
+			break;
+		case 3:
+			WyswietlDane();
+			break;
+		case 4:
+			exit(0);
+		default:
+			break;
+		}
 	}
 }
+
+void UtworzFlote(int IleSamochodow)
+{
+	srand(time(NULL));
+	Flota = new Car[IleSamochodow];
+	for (int i = 0; i < IloscSamochodow; i++)
+	{
+		Flota[i].Car::NadajNumerStartowy((double)i);
+	}
+}
+
+void RozpocznijZawody()
+{
+
+}
+
+void ZatankujWszystkie(double Ile)
+{
+	for (int i = 0; i < IloscSamochodow; i++)
+	{
+		string Temp;
+		Flota[i].Car::Info(Temp, "numer_startowy");
+		double IleJestPaliwa = Flota[i].Car::OdczytStanuPaliwa(0);
+		double ProcentBaku = Flota[i].Car::OdczytPojemnosciBaku() * (Ile / 100);
+		double IleDolacPaliwa = ProcentBaku - IleJestPaliwa;
+
+		cout << "Do samochodu " << Temp << " dolano " << IleDolacPaliwa << " jednostek paliwa. Aktualny stan: " << to_string(Flota[i].Car::Tankuj(IleDolacPaliwa)) << endl;
+	}
+}
+
+void WyswietlDane()
+{
+	for (int i = 0; i < IloscSamochodow; i++)
+	{
+		string Temp;
+		Flota[i].Car::Info(Temp, "wszystko");
+		cout << Temp << endl;
+	}
+}
+
+//void NadajNumeryStartowe(int Ilosc)
+//{
+//	srand(time(NULL));
+//	for (int i = 0; i < Ilosc; i++)
+//	{
+//		BazaSamochodow[i] = (double)rand() / RAND_MAX * (1000000 - 1) + 1;
+//	}
+//}
