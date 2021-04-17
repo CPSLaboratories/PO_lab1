@@ -97,7 +97,7 @@ double Car::OdczytStanuPaliwa(double dystans)
 }
 
 //Sebastian
-void Car::NadajNumerStartowy(double Numer)
+void Car::NadajNumerStartowy(int Numer)
 {
 
 }

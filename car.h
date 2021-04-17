@@ -10,7 +10,7 @@ class Car
 	public:
 		bool Jazda(double);
 		double Tankuj(double); // Ta funkcja by³a void, zmieni³em na double i u¿y³em jej w tej postaci w kodzie
-		void NadajNumerStartowy(double);
+		void NadajNumerStartowy(int);
 		void Info(const std::string& Zmienna, std::string Typ);
 		double OdczytLicznika(); // Przebieg
 		double OdczytStanuPaliwa(double);
