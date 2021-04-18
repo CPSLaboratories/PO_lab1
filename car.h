@@ -24,7 +24,7 @@ class Car
 		double PozostalePaliwo; // Paliwo, które pozosta³o po przejechaniu przebytego dystansu
 		double SrednieSpalanie;
 		double PrzebytyDystans; // sumaryczny dystans, przebyty po danej liczbie wywo³añ funkcji "Jazda"
-
+	
 		//informacja o pozosta³ym paliwie - dostanê j¹ z main
 
 };

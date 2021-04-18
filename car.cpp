@@ -36,23 +36,22 @@ bool Car::Jazda(double Odleglosc)
 	if (Car::PozostalePaliwo == 0.0)
 	{
 		cout << "Brak paliwa";
+		return Sukces;
 	}
 	else
 	{
 		if ((Car::SrednieSpalanie * Odleglosc) > Car::PozostalePaliwo)
 		{
 			Car::PrzebytyDystans = Car::PrzebytyDystans + (Car::PozostalePaliwo / Car::SrednieSpalanie);
-			Car::OdczytStanuPaliwa(Car::PozostalePaliwo / Car::SrednieSpalanie); // Tutaj równoznaczne bêdzie wyzerowanie paliwa komend¹ Car::PozostalePaliwo = 0.0;  
+			Car::PozostalePaliwo = 0.0; 
 
-			//bool Porazka = true; // Nie wiem, czy tutaj powinno byæ true czy false
-			//return Porazka;
-			Sukces = false; //Drobna poprawka ~ Przemek
+			Sukces = false;
 			return Sukces;
 		}
 		else
 		{
 			Car::PrzebytyDystans = Car::PrzebytyDystans + Odleglosc;
-			Car::OdczytStanuPaliwa(Odleglosc);
+			Car::PozostalePaliwo = Car::PozostalePaliwo - (Car::PrzebytyDystans * Car::SrednieSpalanie);
 
 			Sukces = true;
 			return Sukces;
@@ -84,16 +83,7 @@ double Car::Tankuj(double Ilosc)
 
 double Car::OdczytStanuPaliwa(double dystans)
 {
-	if ((Car::PozostalePaliwo - (dystans * Car::SrednieSpalanie)) < 0.0)
-	{
-		Car::PozostalePaliwo = 0.0;
-	}
-	else
-	{
-		Car::PozostalePaliwo = Car::PozostalePaliwo - (Car::PrzebytyDystans * Car::SrednieSpalanie);
-	}
-
-	//return Car::PozostalePaliwo;
+	return Car::PozostalePaliwo;
 }
 
 //Sebastian
@@ -105,12 +95,12 @@ void Car::NadajNumerStartowy(int Numer)
 
 double Car::OdczytLicznika()
 {
-
+	return 0;
 }
 
 double Car::OdczytPojemnosciBaku()
 {
-
+	return 0;
 }
 
 void Car::Info(const string& Zmienna, string Typ)
