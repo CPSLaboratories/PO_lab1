@@ -67,7 +67,22 @@ void UtworzFlote(int IleSamochodow)	//Utworzenie floty samochodów o zadanym rozm
 
 void RozpocznijZawody()				//Rozpoczêcie zawodów o okreœlonej liczbie jednostek odleg³oœci
 {
+	int Wyniki;
 
+	for (int i = 0; i < IloscSamochodow; i++)
+	{
+		double StanLicznikaStart = Flota[i].Car::OdczytLicznika();
+		bool Sukces = Flota[i].Car::Jazda(OdlegloscZawody); 
+		double PrzejechanoDystans = Flota[i].Car::OdczytLicznika() - StanLicznikaStart;
+		if (Sukces == true)
+		{
+			cout << "Samochod " << to_string(i) << "ukonczyl zawody pomyslnie";
+		}
+		else
+		{
+			cout << "Samochod " << to_string(i) << "nie dojechal do mety. Przejechal " << to_string(PrzejechanoDystans) << "jednostek odleglosci";
+		}
+	}
 }
 
 void ZatankujWszystkie(double Ile)	//Zatankowanie wszystkich samochodów do okreœlonej pojemnoœci baku w % - domyœlnie 80%
