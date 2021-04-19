@@ -14,15 +14,15 @@ using namespace std;
 
 Car::Car() 
 {
-	Car::PojemnoscBaku = LosujDane(40,100);
-	Car::SrednieSpalanie = LosujDane(0.04,0.10);
+	Car::PojemnoscBaku = LosujDane(40,100);       // Wylosowanie pojemnoœci baku 
+	Car::SrednieSpalanie = LosujDane(0.04,0.10);  // Wylosowanie œredniego spalania
 	Car::PrzebytyDystans = 0.0;
 	Car::PozostalePaliwo = 0.0;
 }
 
 Car::~Car() {}
 
-double Car::LosujDane(double ValStart, double ValStop)
+double Car::LosujDane(double ValStart, double ValStop)  // Implementacja funkcji losuj¹cej liczby z zadanego przedzia³u
 {
 	return (double)rand() / RAND_MAX * (ValStop - ValStart) + ValStart;
 }
@@ -30,8 +30,7 @@ double Car::LosujDane(double ValStart, double ValStop)
 //Jakub
 bool Car::Jazda(double Odleglosc)
 {
-	// Trzeba zadbaæ, aby Odleglosc by³a nieujemna
-	bool Sukces = false;
+	bool Sukces = false;  // Ustawienie domyœlnej wartoœci zwracanej
 
 	if (Car::PozostalePaliwo == 0.0)
 	{
@@ -40,17 +39,16 @@ bool Car::Jazda(double Odleglosc)
 	}
 	else
 	{
-		if ((Car::SrednieSpalanie * Odleglosc) > Car::PozostalePaliwo)
+		if ((Car::SrednieSpalanie * Odleglosc) > Car::PozostalePaliwo)  // Funkcja wykonywana, jeœli pozosta³ego paliwa nie wystarczy na przejechanie zadanej odleg³oœci
 		{
 			Car::PrzebytyDystans = Car::PrzebytyDystans + (Car::PozostalePaliwo / Car::SrednieSpalanie);
 			Car::PozostalePaliwo = 0.0; 
 
-			Sukces = false;
 			return Sukces;
 		}
 		else
 		{
-			Car::PrzebytyDystans = Car::PrzebytyDystans + Odleglosc;
+			Car::PrzebytyDystans = Car::PrzebytyDystans + Odleglosc;   // Funkcja wykonywana, jeœli pozosta³ego paliwa jest wystarczaj¹co, by przejechaæ zadan¹ odleg³oœæ
 			Car::PozostalePaliwo = Car::PozostalePaliwo - (Car::PrzebytyDystans * Car::SrednieSpalanie);
 
 			Sukces = true;
@@ -59,16 +57,16 @@ bool Car::Jazda(double Odleglosc)
 	}
 }
 
-double Car::Tankuj(double Ilosc)
+double Car::Tankuj(double Ilosc)  // zmienna "Ilosc" mo¿e byc ujemna; przyjmyjemy wtedy, ¿e paliwo jest wylewane z baku
 {
-	if (Car::PozostalePaliwo + Ilosc > Car::PojemnoscBaku)
+	if (Car::PozostalePaliwo + Ilosc > Car::PojemnoscBaku)  // Funkcja wykonywana, jeœli polecono zatankowaæ wiêcej paliwa, ni¿ zmieœci siê w baku
 	{
 		Car::PozostalePaliwo = Car::PojemnoscBaku;
 		cout << "Nie mozesz dolac wiecej paliwa, niz wynosi pojemnosc baku. Bak pelny.";
 	}
 	else
 	{
-		if (Car::PozostalePaliwo + Ilosc < 0.0)
+		if (Car::PozostalePaliwo + Ilosc < 0.0)  // Funkcja wykonywana, jeœli polecono wylaæ z baku wiêcej paliwa, ni¿ znajduje siê w nim obecnie
 		{
 			Car::PozostalePaliwo = 0.0;
 			cout << "Nie mozesz wylac wiecej paliwa, niz obecnie znajduje sie w baku. Bak pusty.";
@@ -81,7 +79,7 @@ double Car::Tankuj(double Ilosc)
 	return(Car::PozostalePaliwo);
 }
 
-double Car::OdczytStanuPaliwa(double dystans)
+double Car::OdczytStanuPaliwa(double dystans)  // Funkcja s³u¿¹ca do odczytania obecnego stanu paliwa w baku
 {
 	return Car::PozostalePaliwo;
 }
