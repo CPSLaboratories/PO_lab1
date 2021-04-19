@@ -1,6 +1,7 @@
 
-/*-----------------Programowanie Obiektowe/AiR/Semestr 2/Grupa 5/Sekcja 19------------------------------ 
- ------------------Przemys³aw Papiernik/Jakub Wrzeszcz/Sebastian Likoñski-----------------------------*/
+/*-----------------Programowanie Obiektowe/AiR/Semestr 2/Grupa 5/Sekcja 5.9----------------------------- 
+ ------------------Przemys³aw Papiernik/Jakub Wrzeszcz/Sebastian Likoñski-------------------------------
+Link do repozytorium: https://github.com/CPSLaboratories/PO_lab1.git                                  */
 
 //Biblioteki
 #include "main.h"
@@ -11,8 +12,8 @@
 using namespace std;
 
 //CFG
-double ZatankujWszystkieDo = 80;    //Tankowanie do 80% baku, mo¿na ³atwo zmieniæ
-int OdlegloscZawody = 100;          //Iloœæ jednostek odleg³oœci na zawodach, mo¿na ³atwo zmieniæ
+double ZatankujWszystkieDo = 80.0;    //Tankowanie do 80% baku, mo¿na ³atwo zmieniæ
+double OdlegloscZawody = 100.0;          //Iloœæ jednostek odleg³oœci na zawodach, mo¿na ³atwo zmieniæ
 int IloscSamochodow = 0;			//Wartoœæ wpisywana przez u¿ytkownika - ile samochodów chce utworzyæ
 									
 //Zmienne
@@ -65,7 +66,7 @@ void UtworzFlote(int IleSamochodow)	//Utworzenie floty samochodów o zadanym rozm
 	}
 }
 
-void RozpocznijZawody(int Odleglosc)				//Rozpoczêcie zawodów o okreœlonej liczbie jednostek odleg³oœci
+void RozpocznijZawody(double Odleglosc)				//Rozpoczêcie zawodów o okreœlonej liczbie jednostek odleg³oœci
 {
 	double * StanLicznikow = new double[IloscSamochodow]; //Tablica na stan licznika obiektów Car przed zawodami
 	int Zwyciezca = -1;
@@ -74,6 +75,11 @@ void RozpocznijZawody(int Odleglosc)				//Rozpoczêcie zawodów o okreœlonej liczb
 	{
 		StanLicznikow[i] = Flota[i].Car::OdczytLicznika(); //Odczytujemy stan liczników do tablicy
 	}
+
+	//for (int i = 0; i < IloscSamochodow; i++)
+	//{
+	//	cout << to_string(StanLicznikow[i]);
+	//}
 
 	double PaliwoLacznie = 1.0;
 	bool Sukces;
@@ -84,7 +90,7 @@ void RozpocznijZawody(int Odleglosc)				//Rozpoczêcie zawodów o okreœlonej liczb
 		for (int i = 0; i < IloscSamochodow; i++)
 		{
 			Sukces = Flota[i].Car::Jazda(Odleglosc);
-			PaliwoLacznie += Flota[i].Car::OdczytStanuPaliwa(0);
+			PaliwoLacznie += Flota[i].Car::OdczytStanuPaliwa();
 		}
 	}
 
@@ -114,7 +120,7 @@ void ZatankujWszystkie(double Ile)	//Zatankowanie wszystkich samochodów do okreœ
 	{
 		string Temp;
 		Flota[i].Car::Info(Temp, 1);	//Pobranie numeru startowego
-		double IleJestPaliwa = Flota[i].Car::OdczytStanuPaliwa(0);	//Sprawdzenie aktualnego stanu paliwa w danym obiekcie Car
+		double IleJestPaliwa = Flota[i].Car::OdczytStanuPaliwa();	//Sprawdzenie aktualnego stanu paliwa w danym obiekcie Car
 		double ProcentBaku = Flota[i].Car::OdczytPojemnosciBaku() * (Ile / 100);	//Obliczenie ile wynosi 80% objêtoœci baku danego obiektu Car
 		double IleDolacPaliwa = ProcentBaku - IleJestPaliwa;	//Obliczenie ile paliwa nale¿y dolaæ. Jeœli paliwa w baku jest wiêcej ni¿ 80% to otrzymamy 
 																//wartoœæ ujemn¹ i paliwo zostanie odlane.

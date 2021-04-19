@@ -1,6 +1,7 @@
 
-/*-----------------Programowanie Obiektowe/AiR/Semestr 2/Grupa 5/Sekcja 19------------------------------
- ------------------Przemys³aw Papiernik/Jakub Wrzeszcz/Sebastian Likoñski-----------------------------*/
+/*-----------------Programowanie Obiektowe/AiR/Semestr 2/Grupa 5/Sekcja 5.9-----------------------------
+ ------------------Przemys³aw Papiernik/Jakub Wrzeszcz/Sebastian Likoñski-------------------------------
+Link do repozytorium: https://github.com/CPSLaboratories/PO_lab1.git                                  */
 
 #pragma once
 #include <string>
@@ -13,7 +14,7 @@ class Car
 		void NadajNumerStartowy(int);
 		void Info(std::string& Zmienna, int Typ);
 		double OdczytLicznika();  // Funkcja informuj¹ca o obecnym przebiegu pojazdu
-		double OdczytStanuPaliwa(double); 
+		double OdczytStanuPaliwa(); 
 		double OdczytPojemnosciBaku();
 		double LosujDane(double, double);  // Funkcja losuj¹ca liczby z zadanego przedzia³u 
 		Car();

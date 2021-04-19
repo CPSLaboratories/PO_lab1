@@ -1,7 +1,7 @@
 
-/*-----------------Programowanie Obiektowe/AiR/Semestr 2/Grupa 5/Sekcja 19------------------------------
- ------------------Przemys³aw Papiernik/Jakub Wrzeszcz/Sebastian Likoñski-----------------------------*/
-
+/*-----------------Programowanie Obiektowe/AiR/Semestr 2/Grupa 5/Sekcja 5.9-----------------------------
+ ------------------Przemys³aw Papiernik/Jakub Wrzeszcz/Sebastian Likoñski-------------------------------
+Link do repozytorium: https://github.com/CPSLaboratories/PO_lab1.git                                  */
 
 
 //Biblioteki
@@ -35,7 +35,7 @@ bool Car::Jazda(double Odleglosc)
 
 	if (Car::PozostalePaliwo == 0.0)
 	{
-		//cout << "Brak paliwa";
+		/*cout << "Brak paliwa";*/
 		return Sukces;
 	}
 	else
@@ -50,7 +50,7 @@ bool Car::Jazda(double Odleglosc)
 		else
 		{
 			Car::PrzebytyDystans = Car::PrzebytyDystans + Odleglosc;   // Funkcja wykonywana, jeœli pozosta³ego paliwa jest wystarczaj¹co, by przejechaæ zadan¹ odleg³oœæ
-			Car::PozostalePaliwo = Car::PozostalePaliwo - (Car::PrzebytyDystans * Car::SrednieSpalanie);
+			Car::PozostalePaliwo = Car::PozostalePaliwo - (Odleglosc * Car::SrednieSpalanie);
 
 			Sukces = true;
 			return Sukces;
@@ -113,7 +113,7 @@ void Car::Info(string& Zmienna, int Typ) //Przygotowana pod zwracanie gotowych n
 	}
 }
 
-double Car::OdczytStanuPaliwa(double dystans)
+double Car::OdczytStanuPaliwa()
 {
 	return Car::PozostalePaliwo;
 }
