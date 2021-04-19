@@ -8,7 +8,7 @@ void main();
 
 void UtworzFlote(int IleSamochodow);
 
-void RozpocznijZawody();
+void RozpocznijZawody(int);
 
 void ZatankujWszystkie(double Ile);
 

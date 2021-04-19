@@ -3,7 +3,6 @@
  ------------------Przemys³aw Papiernik/Jakub Wrzeszcz/Sebastian Likoñski-----------------------------*/
 
 
-//Milej zabawy ~ Przemys³aw
 
 //Biblioteki
 #include "car.h"
@@ -12,15 +11,17 @@
 #include <iostream>
 using namespace std;
 
+//Konstruktor
 Car::Car() 
 {
-	Car::PojemnoscBaku = LosujDane(40,100);       // Wylosowanie pojemnoœci baku 
-	Car::SrednieSpalanie = LosujDane(0.04,0.10);  // Wylosowanie œredniego spalania
-	Car::PrzebytyDystans = 0.0;
+	Car::PojemnoscBaku = LosujDane(40,100);			// Wylosowanie pojemnoœci baku 
+	Car::SrednieSpalanie = LosujDane(0.04,0.10);	// Wylosowanie œredniego spalania
+	Car::PrzebytyDystans = 0.0;						// Zerowanie wartoœci
 	Car::PozostalePaliwo = 0.0;
 	Car::NumerStartowy = 0;
 }
 
+//Dekonstruktor
 Car::~Car() {}
 
 double Car::LosujDane(double ValStart, double ValStop)  // Implementacja funkcji losuj¹cej liczby z zadanego przedzia³u
@@ -28,14 +29,13 @@ double Car::LosujDane(double ValStart, double ValStop)  // Implementacja funkcji
 	return (double)rand() / RAND_MAX * (ValStop - ValStart) + ValStart;
 }
 
-//Jakub
 bool Car::Jazda(double Odleglosc)
 {
 	bool Sukces = false;  // Ustawienie domyœlnej wartoœci zwracanej
 
 	if (Car::PozostalePaliwo == 0.0)
 	{
-		cout << "Brak paliwa";
+		//cout << "Brak paliwa";
 		return Sukces;
 	}
 	else
@@ -58,7 +58,7 @@ bool Car::Jazda(double Odleglosc)
 	}
 }
 
-double Car::Tankuj(double Ilosc)  // zmienna "Ilosc" mo¿e byc ujemna; przyjmyjemy wtedy, ¿e paliwo jest wylewane z baku
+double Car::Tankuj(double Ilosc)  // zmienna "Ilosc" mo¿e byc ujemna; przyjmujemy wtedy, ¿e paliwo jest wylewane z baku
 {
 	if (Car::PozostalePaliwo + Ilosc > Car::PojemnoscBaku)  // Funkcja wykonywana, jeœli polecono zatankowaæ wiêcej paliwa, ni¿ zmieœci siê w baku
 	{
@@ -80,21 +80,42 @@ double Car::Tankuj(double Ilosc)  // zmienna "Ilosc" mo¿e byc ujemna; przyjmyjem
 	return(Car::PozostalePaliwo);
 }
 
-double Car::OdczytStanuPaliwa(double dystans)  // Funkcja s³u¿¹ca do odczytania obecnego stanu paliwa w baku
-{
-	return Car::PozostalePaliwo;
-}
-
-//Sebastian
-void Car::NadajNumerStartowy(int Numer)
+void Car::NadajNumerStartowy(int Numer) //Funkcja s³u¿¹ca do nadawania numeru startowego obiektu Car
 {
 	Car::NumerStartowy = Numer;
 }
 
-
-double Car::OdczytLicznika()
+//Metody dostêpowe
+void Car::Info(string& Zmienna, int Typ) //Przygotowana pod zwracanie gotowych napisów wszystkich wartoœci w zale¿noœci od argumentu Typ, chocia¿ wykorzystujemy tylko 1 i 6
 {
-	return Car::PrzebytyDystans;
+	switch (Typ)
+	{
+	case 1:
+		Zmienna = "numer_startowy: " + to_string(Car::NumerStartowy);
+		break;
+	case 2:
+		Zmienna = "spalanie: " + to_string(Car::SrednieSpalanie);
+		break;
+	case 3:
+		Zmienna = "przebieg: " + to_string(Car::PrzebytyDystans);
+		break;
+	case 4:
+		Zmienna = "pojemnosc_baku: " + to_string(Car::PojemnoscBaku);
+		break;
+	case 5:
+		Zmienna = "stan_paliwa: " + to_string(Car::PozostalePaliwo);
+		break;
+	case 6:
+		Zmienna = "numer_startowy: " + to_string(Car::NumerStartowy) + " spalanie: " + to_string(Car::SrednieSpalanie) + " przebieg: " + to_string(Car::PrzebytyDystans) + " pojemnosc_baku: " + to_string(Car::PojemnoscBaku) + " stan_paliwa: " + to_string(Car::PozostalePaliwo);
+		break;
+	default:
+		break;
+	}
+}
+
+double Car::OdczytStanuPaliwa(double dystans)
+{
+	return Car::PozostalePaliwo;
 }
 
 double Car::OdczytPojemnosciBaku()
@@ -102,26 +123,7 @@ double Car::OdczytPojemnosciBaku()
 	return Car::PojemnoscBaku;
 }
 
-void Car::Info(const string& Zmienna, int Typ)
+double Car::OdczytLicznika()
 {
-	switch (Typ)
-	{
-	case 1 :
-		Zmienna = Car::NumerStartowy;
-	
-	case 2:
-		Zmienna = Car::SrednieSpalanie;
-	case 3:
-		Zmienna = Car::PrzebytyDystans;
-	case 4:
-		Zmienna = Car::PojemnoscBaku;
-	case 5:
-		Zmienna = Car::PozostalePaliwo;
-	case 6:
-		Zmienna = "numer_startowy: " + Car::NumerStartowy + " spalanie: " + Car::SrednieSpalanie + " przebieg: " + Car::PrzebytyDystans + "pojemnosc_baku " + Car::PojemnoscBaku + " stan_paliwa" + Car::PozostalePaliwo;
-		exit(0); 
-	default:
-		break;
-	}
-	//ma obs³ugiwaæ case'y "numer_startowy", "spalanie", "przebieg", "pojemnosc_baku", "stan_paliwa", "wszystko"
+	return Car::PrzebytyDystans;
 }

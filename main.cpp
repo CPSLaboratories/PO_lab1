@@ -32,7 +32,7 @@ void main()
 
 	while (1)						//Menu
 	{
-		cout << "Wybierz opcje\n1.Zatankuj wszystkie samochody do 80% pojemnosci baku\n2.Rozpocznij zawody\n3.Wyswietl dane pojazdow\n4.Zamknij program";
+		cout << "Wybierz opcje\n1.Zatankuj wszystkie samochody do 80% pojemnosci baku\n2.Rozpocznij zawody\n3.Wyswietl dane pojazdow\n4.Zamknij program\n";
 		cin >> Menu;
 		switch (Menu)
 		{
@@ -40,7 +40,7 @@ void main()
 			ZatankujWszystkie(ZatankujWszystkieDo);
 			break;
 		case 2:
-			RozpocznijZawody();
+			RozpocznijZawody(OdlegloscZawody);
 			break;
 		case 3:
 			WyswietlDane();
@@ -65,24 +65,47 @@ void UtworzFlote(int IleSamochodow)	//Utworzenie floty samochodów o zadanym rozm
 	}
 }
 
-void RozpocznijZawody()				//Rozpoczêcie zawodów o okreœlonej liczbie jednostek odleg³oœci
+void RozpocznijZawody(int Odleglosc)				//Rozpoczêcie zawodów o okreœlonej liczbie jednostek odleg³oœci
 {
-	int Wyniki;
+	double * StanLicznikow = new double[IloscSamochodow]; //Tablica na stan licznika obiektów Car przed zawodami
+	int Zwyciezca = -1;
 
 	for (int i = 0; i < IloscSamochodow; i++)
 	{
-		double StanLicznikaStart = Flota[i].Car::OdczytLicznika();
-		bool Sukces = Flota[i].Car::Jazda(OdlegloscZawody); 
-		double PrzejechanoDystans = Flota[i].Car::OdczytLicznika() - StanLicznikaStart;
-		if (Sukces == true)
+		StanLicznikow[i] = Flota[i].Car::OdczytLicznika(); //Odczytujemy stan liczników do tablicy
+	}
+
+	double PaliwoLacznie = 1.0;
+	bool Sukces;
+
+	while (PaliwoLacznie != 0.0) //Zawody bêd¹ trwaæ dopóki suma paliwa we wszystkich bakach bêdzie ró¿na od 0.
+	{
+		PaliwoLacznie = 0.0;
+		for (int i = 0; i < IloscSamochodow; i++)
 		{
-			cout << "Samochod " << to_string(i) << "ukonczyl zawody pomyslnie";
-		}
-		else
-		{
-			cout << "Samochod " << to_string(i) << "nie dojechal do mety. Przejechal " << to_string(PrzejechanoDystans) << "jednostek odleglosci";
+			Sukces = Flota[i].Car::Jazda(Odleglosc);
+			PaliwoLacznie += Flota[i].Car::OdczytStanuPaliwa(0);
 		}
 	}
+
+	//Sprawdzamy stan liczników przed i po, obliczamy otrzymany dystans, wybieramy zwyciêzcê
+	Zwyciezca = 0;
+	double TempLicznik = Flota[0].Car::OdczytLicznika() - StanLicznikow[0];
+
+	for (int i = 1; i < IloscSamochodow; i++) 
+	{
+		if (TempLicznik < (Flota[i].Car::OdczytLicznika() - StanLicznikow[i]))
+		{
+			Zwyciezca = i;
+		}
+	}
+
+	string TempZwyciezca;
+	Flota[Zwyciezca].Car::Info(TempZwyciezca, 1);
+
+	cout << "Zwyciezca jest samochod z " << TempZwyciezca << endl;
+
+	delete[] StanLicznikow;
 }
 
 void ZatankujWszystkie(double Ile)	//Zatankowanie wszystkich samochodów do okreœlonej pojemnoœci baku w % - domyœlnie 80%
@@ -90,7 +113,7 @@ void ZatankujWszystkie(double Ile)	//Zatankowanie wszystkich samochodów do okreœ
 	for (int i = 0; i < IloscSamochodow; i++)
 	{
 		string Temp;
-		Flota[i].Car::Info(Temp, "numer_startowy");	//Pobranie numeru startowego
+		Flota[i].Car::Info(Temp, 1);	//Pobranie numeru startowego
 		double IleJestPaliwa = Flota[i].Car::OdczytStanuPaliwa(0);	//Sprawdzenie aktualnego stanu paliwa w danym obiekcie Car
 		double ProcentBaku = Flota[i].Car::OdczytPojemnosciBaku() * (Ile / 100);	//Obliczenie ile wynosi 80% objêtoœci baku danego obiektu Car
 		double IleDolacPaliwa = ProcentBaku - IleJestPaliwa;	//Obliczenie ile paliwa nale¿y dolaæ. Jeœli paliwa w baku jest wiêcej ni¿ 80% to otrzymamy 
@@ -106,16 +129,7 @@ void WyswietlDane() //Wyœwietlenie danych o obiektach Car
 	for (int i = 0; i < IloscSamochodow; i++)
 	{
 		string Temp;
-		Flota[i].Car::Info(Temp, "wszystko");
+		Flota[i].Car::Info(Temp, 6);
 		cout << Temp << endl;
 	}
 }
-
-//void NadajNumeryStartowe(int Ilosc)
-//{
-//	srand(time(NULL));
-//	for (int i = 0; i < Ilosc; i++)
-//	{
-//		BazaSamochodow[i] = (double)rand() / RAND_MAX * (1000000 - 1) + 1;
-//	}
-//}
