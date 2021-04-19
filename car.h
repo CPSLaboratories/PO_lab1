@@ -11,7 +11,7 @@ class Car
 		bool Jazda(double);
 		double Tankuj(double); 
 		void NadajNumerStartowy(int);
-		void Info(const std::string& Zmienna, std::string Typ);
+		void Info(const std::string& Zmienna, int Typ);
 		double OdczytLicznika();  // Funkcja informuj¹ca o obecnym przebiegu pojazdu
 		double OdczytStanuPaliwa(double); 
 		double OdczytPojemnosciBaku();
@@ -23,8 +23,8 @@ class Car
 		double PojemnoscBaku;
 		double PozostalePaliwo;  // Paliwo, które pozosta³o po przejechaniu przebytego dystansu
 		double SrednieSpalanie;
-		double PrzebytyDystans;  // Sumaryczny dystans, przebyty po danej liczbie wywo³añ funkcji "Jazda"
-	
+		double PrzebytyDystans; // Sumaryczny dystans, przebyty po danej liczbie wywo³añ funkcji "Jazda"
+		unsigned int NumerStartowy;
 		//informacja o pozosta³ym paliwie - dostanê j¹ z main
 
 };

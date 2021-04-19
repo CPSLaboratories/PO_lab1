@@ -18,6 +18,7 @@ Car::Car()
 	Car::SrednieSpalanie = LosujDane(0.04,0.10);  // Wylosowanie œredniego spalania
 	Car::PrzebytyDystans = 0.0;
 	Car::PozostalePaliwo = 0.0;
+	Car::NumerStartowy = 0;
 }
 
 Car::~Car() {}
@@ -87,21 +88,40 @@ double Car::OdczytStanuPaliwa(double dystans)  // Funkcja s³u¿¹ca do odczytania 
 //Sebastian
 void Car::NadajNumerStartowy(int Numer)
 {
-
+	Car::NumerStartowy = Numer;
 }
 
 
 double Car::OdczytLicznika()
 {
-	return 0;
+	return Car::PrzebytyDystans;
 }
 
 double Car::OdczytPojemnosciBaku()
 {
-	return 0;
+	return Car::PojemnoscBaku;
 }
 
-void Car::Info(const string& Zmienna, string Typ)
+void Car::Info(const string& Zmienna, int Typ)
 {
+	switch (Typ)
+	{
+	case 1 :
+		Zmienna = Car::NumerStartowy;
+	
+	case 2:
+		Zmienna = Car::SrednieSpalanie;
+	case 3:
+		Zmienna = Car::PrzebytyDystans;
+	case 4:
+		Zmienna = Car::PojemnoscBaku;
+	case 5:
+		Zmienna = Car::PozostalePaliwo;
+	case 6:
+		Zmienna = "numer_startowy: " + Car::NumerStartowy + " spalanie: " + Car::SrednieSpalanie + " przebieg: " + Car::PrzebytyDystans + "pojemnosc_baku " + Car::PojemnoscBaku + " stan_paliwa" + Car::PozostalePaliwo;
+		exit(0); 
+	default:
+		break;
+	}
 	//ma obs³ugiwaæ case'y "numer_startowy", "spalanie", "przebieg", "pojemnosc_baku", "stan_paliwa", "wszystko"
 }
